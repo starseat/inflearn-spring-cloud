@@ -8,6 +8,10 @@ spring:
     name: user-service
 
 eureka:
+  instance:
+    # eureka 서버에는 yml 에 설정한 IP:application-name:port 로 표기됨.
+    # 따라서 임의적으로 표시정보 설정
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
   client:
     register-with-eureka: true
     fetch-registry: true
