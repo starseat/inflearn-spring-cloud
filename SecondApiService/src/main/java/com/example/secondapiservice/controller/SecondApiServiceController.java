@@ -15,10 +15,11 @@ public class SecondApiServiceController {
         return "Welcome to the Second Api Service";
     }
 
+    // Gateway 의 FilterConfig 에서 추가한 header 값 추가
     @GetMapping("/message")
     public String message(@RequestHeader("second-request") String header) {
         //System.out.println(header);
-        log.info(header);
+        log.info("[message] header: {}", header);
         return "Hello World in Second Service.";
     }
 }
