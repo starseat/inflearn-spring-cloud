@@ -37,3 +37,8 @@ spring:
 #            - AddRequestHeader=second-request, second-request-header-use-yml
 #            - AddResponseHeader=second-response, second-response-header-use-yml
             - CustomFilter
+            - name: LoggingFilter  # 부가 옵션을 넣을 경우 - name 필요!
+              args:
+                baseMessage: "Logging Filter Message..."
+                preLogger: true
+                postLogger: true

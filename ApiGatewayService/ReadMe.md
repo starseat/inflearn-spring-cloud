@@ -2,6 +2,8 @@
 
 ## 용어 설명
 
+> 작업 방법은 `property (application.yml)` 로도 가능하고, `Java Code` 로도 가능함.
+
 ### Predicate
  - 요청 정보가 어떤 것인지 판단하는 필터
 
@@ -31,7 +33,13 @@
 2022-05-30 16:46:30.442  INFO 8472 --- [  restartedMain] s.c.a.ApiGatewayServiceApplication       : Started ApiGatewayServiceApplication in 49.832 seconds (JVM running for 54.235)
 ```
 
-> 작업 방법은 `property (application.yml)` 로도 가능하고, `Java Code` 로도 가능함.
+### ServerWebExchange - LoggingFilter
+
+기존 Spring MVC 패턴을 사용할때 `ServletRequest`, `ServletResponse` 를 사용하였지만
+`Spring 5.0` 에 새롭게 도입된 `WebFlux` 를 사용하게 되면 `ServerRequest`, `ServerResponse` 인스턴스를 사용하게 되는데이를 사용하게 해주는게 `ServerWebExchange` 임.
+
+
+
 
 ## 부가 설명
 
