@@ -11,14 +11,21 @@ eureka:
 spring:
   application:
     name: apigateway-service
-#  cloud:
-#    gateway:
-#      routes:
-#        - id: first-service
-#          uri: http://localhost:8081/
-#          predicates:
-#            - Path=/first-service/**
-#        - id: second-service
-#          uri: http://localhost:8082/
-#          predicates:
-#            - Path=/second-service/**
+  cloud:
+    gateway:
+      # 아래 부분은 FilterConfig 로 대체 가능
+      routes:
+        - id: first-service
+          uri: http://localhost:8081/ # 이동 될 주소
+          predicates: # 조건값
+            - Path=/first-service/**
+          filters:
+            - AddRequestHeader=first-request, first-request-header-use-yml
+            - AddResponseHeader=first-response, first-response-header-use-yml
+        - id: second-service
+          uri: http://localhost:8082/
+          predicates:
+            - Path=/second-service/**
+          filters:
+            - AddRequestHeader=second-request, second-request-header-use-yml
+            - AddResponseHeader=second-response, second-response-header-use-yml

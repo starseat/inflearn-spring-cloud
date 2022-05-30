@@ -5,10 +5,10 @@ import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+// application.yml 의 spring.application.cloud.gateway 부분을 java code 로 이동
+//@Configuration
 public class FilterConfig {
-    // application.yml 의 spring.application.cloud.gateway 부분
-    @Bean
+//    @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(r -> r.path("/first-service/**")
