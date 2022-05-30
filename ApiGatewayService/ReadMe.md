@@ -11,6 +11,26 @@
 ### Post Filter
  - 어떠한 처리가 끝난 뒤 수행되는 필터
 
+### Custom Filter
+ - 원하는 곳에 개별적으로 적용, 등록해서 사용하는 Filter
+
+### Global Filter
+ - 공통적으로 실행될 수 있는 Filter
+   - 모든 Filter 들 중에 가장 먼저 시작 되고,
+   - 모든 Filter 들 중에 가장 늦게 종료 됨.
+ - `application.yml` 에서 `default-filters` 에 설정
+
+```
+2022-05-30 16:46:16.681  INFO 8472 --- [  restartedMain] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8000
+2022-05-30 16:46:16.683  INFO 8472 --- [  restartedMain] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8000
+2022-05-30 16:46:16.911  INFO 8472 --- [ctor-http-nio-2] s.c.a.filter.GlobalFilter                : [Global Filter] baseMessage: Spring Cloud Gateway Global Filter
+2022-05-30 16:46:16.912  INFO 8472 --- [ctor-http-nio-2] s.c.a.filter.GlobalFilter                : [Global Filter] start.. request id: 6e3a064c-1
+2022-05-30 16:46:16.913  INFO 8472 --- [ctor-http-nio-2] s.c.a.filter.CustomFilter                : [Custom RRE Filter] request id: 6e3a064c-1
+2022-05-30 16:46:20.936  INFO 8472 --- [ctor-http-nio-2] s.c.a.filter.CustomFilter                : [Custom POST Filter] response code: 200 OK
+2022-05-30 16:46:20.936  INFO 8472 --- [ctor-http-nio-2] s.c.a.filter.GlobalFilter                : [Global Filter] end.. response code: 200 OK
+2022-05-30 16:46:30.442  INFO 8472 --- [  restartedMain] s.c.a.ApiGatewayServiceApplication       : Started ApiGatewayServiceApplication in 49.832 seconds (JVM running for 54.235)
+```
+
 > 작업 방법은 `property (application.yml)` 로도 가능하고, `Java Code` 로도 가능함.
 
 ## 부가 설명

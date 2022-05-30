@@ -13,6 +13,12 @@ spring:
     name: apigateway-service
   cloud:
     gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Cloud Gateway Global Filter
+            preLogger: true
+            postLogger: true
       # 아래 부분은 FilterConfig 로 대체 가능
       routes:
         - id: first-service

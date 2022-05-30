@@ -1,5 +1,6 @@
 package spring.cloud.apigatewayservice.filter;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -8,16 +9,16 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
-// tip) reactive, Mono: (rx 라는) webflux 를 지원해주는 Spring 5 기능, 비동기 방식!
-
 /**
- * 원하는 곳에 개별적으로 적용, 등록해서 사용하는 Filter
+ * 공통적으로 실행될 수 있는 Filter
+ *  - 모든 Filter 들 중에 가장 먼저 시작 되고,
+ *  - 모든 Filter 들 중에 가장 늦게 종료 됨.
  */
 @Component
 @Slf4j
-public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Config> {
+public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Config> {
 
-    public CustomFilter() {
+    public GlobalFilter() {
         super(Config.class);
     }
 
@@ -28,16 +29,24 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
             ServerHttpRequest request = exchange.getRequest();
             ServerHttpResponse response = exchange.getResponse();
 
-            log.info("[Custom RRE Filter] request id: {}", request.getId());
+            log.info("[Global Filter] baseMessage: {}", config.getBaseMessage());
 
-            // Custom Post Filter
+            if(config.isPreLogger()) {
+                log.info("[Global Filter] start.. request id: {}", request.getId());
+            }
+
             return chain.filter(exchange).then(Mono.fromRunnable(() -> {
-                log.info("[Custom POST Filter] response code: {}", response.getStatusCode());
+                if(config.isPostLogger()) {
+                    log.info("[Global Filter] end.. response code: {}", response.getStatusCode());
+                }
             }));
         });
     }
 
+    @Data
     public static class Config {
-        // put the configuration properties.
+        private String baseMessage;
+        private boolean preLogger;
+        private boolean postLogger;
     }
 }
