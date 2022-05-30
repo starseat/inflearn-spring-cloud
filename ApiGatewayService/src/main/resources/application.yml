@@ -20,12 +20,14 @@ spring:
           predicates: # 조건값
             - Path=/first-service/**
           filters:
-            - AddRequestHeader=first-request, first-request-header-use-yml
-            - AddResponseHeader=first-response, first-response-header-use-yml
+#            - AddRequestHeader=first-request, first-request-header-use-yml
+#            - AddResponseHeader=first-response, first-response-header-use-yml
+            - CustomFilter
         - id: second-service
           uri: http://localhost:8082/
           predicates:
             - Path=/second-service/**
           filters:
-            - AddRequestHeader=second-request, second-request-header-use-yml
-            - AddResponseHeader=second-response, second-response-header-use-yml
+#            - AddRequestHeader=second-request, second-request-header-use-yml
+#            - AddResponseHeader=second-response, second-response-header-use-yml
+            - CustomFilter

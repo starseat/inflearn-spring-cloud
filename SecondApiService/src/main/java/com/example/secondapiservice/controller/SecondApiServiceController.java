@@ -22,4 +22,10 @@ public class SecondApiServiceController {
         log.info("[message] header: {}", header);
         return "Hello World in Second Service.";
     }
+
+    // Gateway 의 CustomFilter 테스트용
+    @GetMapping("/check")
+    public String check() {
+        return "Check Second Service.";
+    }
 }

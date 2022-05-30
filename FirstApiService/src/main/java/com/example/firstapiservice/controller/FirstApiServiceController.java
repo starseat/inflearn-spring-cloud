@@ -23,4 +23,10 @@ public class FirstApiServiceController {
         log.info("[message] header: {}", header);
         return "Hello World in First Service.";
     }
+
+    // Gateway 의 CustomFilter 테스트용
+    @GetMapping("/check")
+    public String check() {
+        return "Check First Service.";
+    }
 }
