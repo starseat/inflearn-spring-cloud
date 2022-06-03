@@ -3,14 +3,14 @@ server:
 
 eureka:
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
 
 spring:
   application:
-    name: apigateway-service
+    name: jw-apigateway-service
   cloud:
     gateway:
       default-filters:
@@ -22,7 +22,8 @@ spring:
       # 아래 부분은 FilterConfig 로 대체 가능
       routes:
         - id: first-service
-          uri: http://localhost:8081/ # 이동 될 주소
+#          uri: http://localhost:8081/ # 이동 될 주소
+          uri: lb://JW-FIRST-API-SERVICE
           predicates: # 조건값
             - Path=/first-service/**
           filters:
@@ -30,7 +31,8 @@ spring:
 #            - AddResponseHeader=first-response, first-response-header-use-yml
             - CustomFilter
         - id: second-service
-          uri: http://localhost:8082/
+#          uri: http://localhost:8082/
+          uri: lb://JW-SECOND-API-SERVICE
           predicates:
             - Path=/second-service/**
           filters:
