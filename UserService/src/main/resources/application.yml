@@ -5,7 +5,7 @@ server:
 spring:
   application:
 #    name: UserService
-    name: user-service
+    name: jw-user-service
 
 eureka:
   instance:

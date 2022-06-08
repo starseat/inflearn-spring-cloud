@@ -1,5 +1,6 @@
 server:
-  port: 8081
+  port: 0  # 랜덤 포트
+#  port: 8081
 spring:
   application:
     name: jw-first-api-service
@@ -10,3 +11,6 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
+  instance:
+    # eureka 에서 service 명 구분하기 위하여 추가 (port 가 0 일경우 모든 service 가 0 으로 뜸)
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
